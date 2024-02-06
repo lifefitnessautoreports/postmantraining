@@ -636,6 +636,68 @@
 				},
 				{
 					"name": "Delete several email by id",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "1845a222-cea6-43d6-a141-1e909c95ee7d",
+								"exec": [
+									"var details = {",
+									"    'refresh_token': pm.collectionVariables.get(\"gmailRefreshToken\"),",
+									"    'grant_type': 'refresh_token'",
+									"};",
+									"",
+									"var formBody = [];",
+									"for (var property in details) {",
+									"    var encodedKey = encodeURIComponent(property);",
+									"    var encodedValue = encodeURIComponent(details[property]);",
+									"    formBody.push(encodedKey + \"=\" + encodedValue);",
+									"}",
+									"formBody = formBody.join(\"&\");",
+									"",
+									"const postRefreshTokenRequest = {",
+									"    url: 'https://accounts.google.com/o/oauth2/token?access_type=offline',",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/x-www-form-urlencoded',",
+									"        'Authorization': pm.collectionVariables.get(\"gmailBasicAuth\"),",
+									"    },",
+									"    body: formBody",
+									"}",
+									"",
+									"let emailArray = \"\"",
+									"pm.collectionVariables.set(\"emailArray\", \"\")",
+									"",
+									"pm.sendRequest(postRefreshTokenRequest, function (error, response) {",
+									"    pm.collectionVariables.set(\"gmailAccessToken\", response.json().access_token)",
+									"",
+									"    const getEmailArray = {",
+									"        url: 'https://gmail.googleapis.com/gmail/v1/users/' + pm.collectionVariables.get(\"encodedUserEmail\") + '/messages',",
+									"        method: 'GET',",
+									"        header: {",
+									"            'Content-Type': 'application/json',",
+									"            'Authorization': 'Bearer ' + pm.collectionVariables.get('gmailAccessToken'),",
+									"        },",
+									"    }",
+									"",
+									"    pm.sendRequest(getEmailArray, function (error, response) {",
+									"        const jsonArray = response.json()",
+									"        const emailCount = jsonArray.resultSizeEstimate",
+									"        if (emailCount > 0) {",
+									"            for (let i = 0; i < emailCount; i++) {",
+									"                emailArray += JSON.stringify(jsonArray.messages[i].id) + \", \"",
+									"            }",
+									"            pm.collectionVariables.set(\"emailArray\", emailArray)",
+									"        } else {",
+									"            postman.setNextRequest(\"Get email ids\")",
+									"        }",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"id": "477a4acd-e3f3-40e1-9a1b-76e75fa092fe",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -645,7 +707,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"ids\": [\n    \n  ]\n}",
+							"raw": "{\n  \"ids\": [\n    {{emailArray}}\n  ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -727,7 +789,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "57a2e5f6-3914-4b98-9808-3d3b7361512e",
+				"id": "5c34ec55-99c4-4433-a04c-bc57cbe3fbd5",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -737,7 +799,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "c19675a9-e3d6-49b2-b410-d3b433678e2e",
+				"id": "c2c1ea9d-9847-49c6-af58-23350aed925d",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -762,7 +824,7 @@
 			"type": "string"
 		},
 		{
-			"key": "gmailAccessToken",
+			"key": "gmailRefreshToken",
 			"value": "1//0cnowKfFAYSpcCgYIARAAGAwSNwF-L9Ir7yxHVqfh3FppwwaPqNPmV2uNjWV9xz2ba2Ti36SxvJ3fDXnQQO43bC7jIELZRf0vWRk",
 			"type": "string"
 		},
@@ -770,6 +832,10 @@
 			"key": "emailArray",
 			"value": "",
 			"type": "string"
+		},
+		{
+			"key": "gmailAccessToken",
+			"value": ""
 		}
 	]
 }
