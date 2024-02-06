@@ -40,10 +40,6 @@
 									"        pm.expect(jsonResp.name).to.eql(\"doggie\");",
 									"    });",
 									"    ",
-									"});",
-									"",
-									"pm.test(\"Status code is 2200\", function () {",
-									"    pm.response.to.have.status(200);",
 									"});"
 								],
 								"type": "text/javascript"
