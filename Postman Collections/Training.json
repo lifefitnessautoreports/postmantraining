@@ -480,13 +480,66 @@
 				}
 			],
 			"id": "fba51f4d-d457-432b-827e-2d45faf74839"
+		},
+		{
+			"name": "Gmail",
+			"item": [
+				{
+					"name": "Get email",
+					"id": "21cc4ecd-7cdb-422e-859f-9cf93dd9325b",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "oauth2",
+							"oauth2": {
+								"scope": "https://mail.google.com/",
+								"clientSecret": "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",
+								"clientId": "1043174425725-5dh8o07nkdoneco9fea39g0qe2krm21l.apps.googleusercontent.com",
+								"accessTokenUrl": "https://accounts.google.com/o/oauth2/token?access_type=offline",
+								"authUrl": "https://accounts.google.com/o/oauth2/auth?access_type=offline",
+								"redirect_uri": "http://localhost:8888/Callback",
+								"tokenName": "Gmail",
+								"addTokenTo": "header"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gmail.googleapis.com/gmail/v1/users/:userId/messages",
+							"protocol": "https",
+							"host": [
+								"gmail",
+								"googleapis",
+								"com"
+							],
+							"path": [
+								"gmail",
+								"v1",
+								"users",
+								":userId",
+								"messages"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "1dcca00e-97c2-4d7a-8713-90dce3b1d5cd"
 		}
 	],
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "5856dddf-087c-4a37-adc6-0d6f836c2f57",
+				"id": "76d643e7-de37-405f-95f0-9f91bdbe1c9a",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -496,7 +549,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "a699b409-7763-4b81-9128-e7499f3b1715",
+				"id": "c512422b-8daa-4a3f-9346-0940f495c5c0",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -507,6 +560,11 @@
 	"variable": [
 		{
 			"key": "petId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "encodedUserEmail",
 			"value": "",
 			"type": "string"
 		}
