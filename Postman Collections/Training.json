@@ -492,7 +492,7 @@
 							"script": {
 								"id": "a157e7e6-d687-4f22-bffc-b8c14f9a02d7",
 								"exec": [
-									"pm.collectionVariables.set(\"encodedUserEmail\", encodeURIComponent(\"postmantrainingcoherent@gmail.com\"))"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -594,6 +594,89 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Delete email by id",
+					"id": "657c17c3-263d-4d05-aa42-050064ea4776",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://gmail.googleapis.com/gmail/v1/users/:userId/messages/:id",
+							"protocol": "https",
+							"host": [
+								"gmail",
+								"googleapis",
+								"com"
+							],
+							"path": [
+								"gmail",
+								"v1",
+								"users",
+								":userId",
+								"messages",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{encodedUserEmail}}"
+								},
+								{
+									"key": "id",
+									"value": "{{emailId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete several email by id",
+					"id": "477a4acd-e3f3-40e1-9a1b-76e75fa092fe",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"ids\": [\n    \n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gmail.googleapis.com/gmail/v1/users/:userId/messages/batchDelete",
+							"protocol": "https",
+							"host": [
+								"gmail",
+								"googleapis",
+								"com"
+							],
+							"path": [
+								"gmail",
+								"v1",
+								"users",
+								":userId",
+								"messages",
+								"batchDelete"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{encodedUserEmail}}"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"id": "1dcca00e-97c2-4d7a-8713-90dce3b1d5cd",
@@ -620,17 +703,17 @@
 				{
 					"listen": "prerequest",
 					"script": {
-						"id": "3dfdb80d-dfba-4eea-9a5f-04e3ae7a1b1e",
+						"id": "bc692968-bfd0-4742-83b5-481942ffa786",
 						"type": "text/javascript",
 						"exec": [
-							""
+							"pm.collectionVariables.set(\"encodedUserEmail\", encodeURIComponent(\"postmantrainingcoherent@gmail.com\"))"
 						]
 					}
 				},
 				{
 					"listen": "test",
 					"script": {
-						"id": "44094c0f-9f57-46bf-95c2-16368c68c423",
+						"id": "482bdca7-a14f-42f6-a681-8d9a16cd1fb3",
 						"type": "text/javascript",
 						"exec": [
 							""
