@@ -504,7 +504,9 @@
 								"exec": [
 									"var json = pm.response.json();",
 									"",
-									"pm.collectionVariables.set(\"emailId\", json.messages[0].id)"
+									"if (json.resultEstimate > 0) {",
+									"    pm.collectionVariables.set(\"emailId\", json.messages[0].id)",
+									"}"
 								],
 								"type": "text/javascript"
 							}
@@ -789,7 +791,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "5c34ec55-99c4-4433-a04c-bc57cbe3fbd5",
+				"id": "a2d3cb9d-62bf-4792-badb-9f9107422214",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -799,7 +801,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "c2c1ea9d-9847-49c6-af58-23350aed925d",
+				"id": "b9e5ded3-38f4-4072-9df1-e6daa10909f4",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -824,11 +826,6 @@
 			"type": "string"
 		},
 		{
-			"key": "gmailRefreshToken",
-			"value": "1//0cnowKfFAYSpcCgYIARAAGAwSNwF-L9Ir7yxHVqfh3FppwwaPqNPmV2uNjWV9xz2ba2Ti36SxvJ3fDXnQQO43bC7jIELZRf0vWRk",
-			"type": "string"
-		},
-		{
 			"key": "emailArray",
 			"value": "",
 			"type": "string"
@@ -836,6 +833,16 @@
 		{
 			"key": "gmailAccessToken",
 			"value": ""
+		},
+		{
+			"key": "gmailRefreshToken",
+			"value": "1//0cnowKfFAYSpcCgYIARAAGAwSNwF-L9Ir7yxHVqfh3FppwwaPqNPmV2uNjWV9xz2ba2Ti36SxvJ3fDXnQQO43bC7jIELZRf0vWRk",
+			"type": "string"
+		},
+		{
+			"key": "gmailBasicAuth",
+			"value": "Basic MTA0MzE3NDQyNTcyNS01ZGg4bzA3bmtkb25lY285ZmVhMzlnMHFlMmtybTIxbC5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbTpHT0NTUFgtSElsanFLTGNlUkJvdXNvaENYUERkbEJaMjNrNQ==",
+			"type": "string"
 		}
 	]
 }
