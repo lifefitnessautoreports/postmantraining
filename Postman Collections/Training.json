@@ -727,7 +727,7 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "60865197-a2a8-4d58-9a83-f548847744e7",
+				"id": "57a2e5f6-3914-4b98-9808-3d3b7361512e",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -737,7 +737,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "9c49d26f-9b38-495e-82cc-e2753299b34d",
+				"id": "c19675a9-e3d6-49b2-b410-d3b433678e2e",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -758,6 +758,16 @@
 		},
 		{
 			"key": "emailId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "gmailAccessToken",
+			"value": "1//0cnowKfFAYSpcCgYIARAAGAwSNwF-L9Ir7yxHVqfh3FppwwaPqNPmV2uNjWV9xz2ba2Ti36SxvJ3fDXnQQO43bC7jIELZRf0vWRk",
+			"type": "string"
+		},
+		{
+			"key": "emailArray",
 			"value": "",
 			"type": "string"
 		}
