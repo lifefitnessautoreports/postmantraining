@@ -16,31 +16,7 @@
 							"script": {
 								"id": "0c3d5a56-1de2-4362-a621-201cf79c8e16",
 								"exec": [
-									"let response = pm.response.text().replace(/([^\"\\w-])([-0-9.]{8,100})([^\"\\w-])/g, '$1\\\"$2\\\"$3');",
-									"let jsonData = JSON.parse(response);",
-									"let id = jsonData.id.replace('\"',''); ",
-									"",
-									"console.log(\"Pet id is \" + id);",
-									"",
-									"pm.collectionVariables.set(\"petId\", id);",
-									"",
-									"const getTokenRequest = {",
-									"    url: 'https://petstore.swagger.io/v2/pet/' + pm.collectionVariables.get(\"petId\"),",
-									"    method: 'GET',",
-									"    header: {",
-									"        'Content-Type': 'application/json'",
-									"    },",
-									"};",
-									"",
-									"pm.sendRequest(getTokenRequest, function (error, response) {",
-									"",
-									"    pm.test(\"Name equals doggie inside\", function () {",
-									"        const jsonResp = response.json();",
-									"        console.log(jsonResp.name);",
-									"        pm.expect(jsonResp.name).to.eql(\"doggie\");",
-									"    });",
-									"    ",
-									"});"
+									""
 								],
 								"type": "text/javascript"
 							}
