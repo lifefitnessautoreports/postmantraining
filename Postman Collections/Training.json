@@ -461,15 +461,91 @@
 		},
 		{
 			"name": "Gmail",
-			"item": [],
-			"id": "d4c255fa-7f98-43e0-9447-b348700670b9"
+			"item": [
+				{
+					"name": "Get emails",
+					"id": "606b7031-6b29-4680-9f24-69f34e854e37",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gmail.googleapis.com/gmail/v1/users/:userId/messages",
+							"protocol": "https",
+							"host": [
+								"gmail",
+								"googleapis",
+								"com"
+							],
+							"path": [
+								"gmail",
+								"v1",
+								"users",
+								":userId",
+								"messages"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{encodedUserEmail}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"id": "d4c255fa-7f98-43e0-9447-b348700670b9",
+			"auth": {
+				"type": "oauth2",
+				"oauth2": {
+					"clientSecret": "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",
+					"clientId": "1072831993603-fdii21nism5g2fl0pok08g39l2e2g5p5.apps.googleusercontent.com",
+					"refreshRequestParams": [],
+					"tokenRequestParams": [],
+					"authRequestParams": [],
+					"tokenName": "Gmail",
+					"challengeAlgorithm": "S256",
+					"scope": "https://mail.google.com/",
+					"redirect_uri": "http://localhost:8888/Callback",
+					"grant_type": "authorization_code",
+					"authUrl": "https://accounts.google.com/o/oauth2/auth?access_type=offline",
+					"addTokenTo": "header",
+					"client_authentication": "header",
+					"accessTokenUrl": "https://accounts.google.com/o/oauth2/token?access_type=offline"
+				}
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "c053a44d-d4a8-4677-88c7-045bc6a8f92b",
+						"type": "text/javascript",
+						"exec": [
+							"pm.collectionVariables.set(\"encodedUserEmail\", encodeURIComponent(\"postmantrainingcoherent@gmail.com\"))"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "83a7d722-d680-4de5-bba2-6192e554f63f",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
 		}
 	],
 	"event": [
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "ead93185-f324-467e-b7c6-a2dd45667092",
+				"id": "45ce4164-8968-46b6-97f0-434af0be639d",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -479,7 +555,7 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "f317028b-fce6-4496-a121-3a7a4f91e553",
+				"id": "23999fa6-df6d-4aef-81a0-4978a5bafdc9",
 				"type": "text/javascript",
 				"exec": [
 					""
@@ -491,6 +567,36 @@
 		{
 			"key": "petId",
 			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "encodedUserEmail",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "emailId",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "emailArray",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "gmailAccessToken",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "gmailRefreshToken",
+			"value": "1//0cR3hhxy1JlO0CgYIARAAGAwSNwF-L9Ir0Fg0BRx5uAVaK_DumlikcJeQ-2zHSw8KKrxiHCSVZFrz_AneXuwad98seDdhVn6_va0",
+			"type": "string"
+		},
+		{
+			"key": "gmailBasicAuth",
+			"value": "Basic MTA3MjgzMTk5MzYwMy1mZGlpMjFuaXNtNWcyZmwwcG9rMDhnMzlsMmUyZzVwNS5hcHBzLmdvb2dsZXVzZXJjb250ZW50LmNvbTpHT0NTUFgtVHBGOGZQU25veGJDM3dFR25pYTVIemVmczFPZA==",
 			"type": "string"
 		}
 	]
