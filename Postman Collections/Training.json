@@ -464,6 +464,20 @@
 			"item": [
 				{
 					"name": "Get emails",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9d7af255-c376-441c-9888-6917f12323c2",
+								"exec": [
+									"var json = pm.response.json()",
+									"",
+									"pm.collectionVariables.set(\"emailId\", json.messages[0].id)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"id": "606b7031-6b29-4680-9f24-69f34e854e37",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -490,6 +504,84 @@
 								{
 									"key": "userId",
 									"value": "{{encodedUserEmail}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get email by id",
+					"id": "7e93803e-a847-4818-b5f0-97a803448d02",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://gmail.googleapis.com/gmail/v1/users/:userId/messages/:id",
+							"protocol": "https",
+							"host": [
+								"gmail",
+								"googleapis",
+								"com"
+							],
+							"path": [
+								"gmail",
+								"v1",
+								"users",
+								":userId",
+								"messages",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{encodedUserEmail}}"
+								},
+								{
+									"key": "id",
+									"value": "{{emailId}}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete email by id",
+					"id": "85013777-4cd0-4eef-b5dd-404a6853ec8f",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://gmail.googleapis.com/gmail/v1/users/:userId/messages/:id",
+							"protocol": "https",
+							"host": [
+								"gmail",
+								"googleapis",
+								"com"
+							],
+							"path": [
+								"gmail",
+								"v1",
+								"users",
+								":userId",
+								"messages",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{encodedUserEmail}}"
+								},
+								{
+									"key": "id",
+									"value": "{{emailId}}"
 								}
 							]
 						}
