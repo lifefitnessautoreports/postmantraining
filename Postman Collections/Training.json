@@ -472,7 +472,9 @@
 								"exec": [
 									"var json = pm.response.json()",
 									"",
-									"pm.collectionVariables.set(\"emailId\", json.messages[0].id)"
+									"if (json.resultSizeEstimate > 0) {",
+									"    pm.collectionVariables.set(\"emailId\", json.messages[0].id)",
+									"}"
 								],
 								"type": "text/javascript"
 							}
@@ -590,6 +592,68 @@
 				},
 				{
 					"name": "Delete email by ids",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "fa8db2da-e959-4460-882e-fbb51cb4162b",
+								"exec": [
+									"var details = {",
+									"    'refresh_token': pm.collectionVariables.get(\"gmailRefreshToken\"),",
+									"    'grant_type': 'refresh_token'",
+									"};",
+									"",
+									"var formBody = [];",
+									"for (var property in details) {",
+									"    var encodedKey = encodeURIComponent(property);",
+									"    var encodedValue = encodeURIComponent(details[property]);",
+									"    formBody.push(encodedKey + \"=\" + encodedValue);",
+									"}",
+									"formBody = formBody.join(\"&\");",
+									"",
+									"const postRefreshTokenRequest = {",
+									"    url: 'https://accounts.google.com/o/oauth2/token?access_type=offline',",
+									"    method: 'POST',",
+									"    header: {",
+									"        'Content-Type': 'application/x-www-form-urlencoded',",
+									"        'Authorization': pm.collectionVariables.get(\"gmailBasicAuth\"),",
+									"    },",
+									"    body: formBody",
+									"}",
+									"",
+									"let emailArray = \"\"",
+									"pm.collectionVariables.set(\"emailArray\", \"\")",
+									"",
+									"pm.sendRequest(postRefreshTokenRequest, function (error, response) {",
+									"    pm.collectionVariables.set(\"gmailAccessToken\", response.json().access_token)",
+									"",
+									"    const getEmailArray = {",
+									"        url: 'https://gmail.googleapis.com/gmail/v1/users/' + pm.collectionVariables.get(\"encodedUserEmail\") + '/messages',",
+									"        method: 'GET',",
+									"        header: {",
+									"            'Content-Type': 'application/json',",
+									"            'Authorization': 'Bearer ' + pm.collectionVariables.get('gmailAccessToken'),",
+									"        },",
+									"    }",
+									"",
+									"    pm.sendRequest(getEmailArray, function (error, response) {",
+									"        const jsonArray = response.json()",
+									"        const emailCount = jsonArray.resultSizeEstimate",
+									"        if (emailCount > 0) {",
+									"            for (let i = 0; i < emailCount; i++) {",
+									"                emailArray += JSON.stringify(jsonArray.messages[i].id) + \", \"",
+									"            }",
+									"            pm.collectionVariables.set(\"emailArray\", emailArray)",
+									"        } else {",
+									"            postman.setNextRequest(\"Get email ids\")",
+									"        }",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"id": "ab85c069-f69a-4247-9d71-c395f1411107",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -599,7 +663,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"ids\": [\n    \n  ]\n}",
+							"raw": "{\n  \"ids\": [\n    {{emailArray}}\n  ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
