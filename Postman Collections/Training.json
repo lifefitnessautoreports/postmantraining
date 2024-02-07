@@ -246,8 +246,11 @@
 							"script": {
 								"id": "eed128d0-9e15-479f-8fd7-4d1e03b0f70b",
 								"exec": [
-									"console.log(encodeURIComponent(\"component log @\"))",
-									"console.log(decodeURIComponent(\"component%20log%20%40\"))"
+									"var atob = require('atob');",
+									"var btoa = require('btoa');",
+									"",
+									"console.log(atob(\"cG9zdG1hbiB0cmFpbmluZw==\"))",
+									"console.log(btoa(\"postman training\"))"
 								],
 								"type": "text/javascript"
 							}
