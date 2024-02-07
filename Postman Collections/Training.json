@@ -587,6 +587,50 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Delete email by ids",
+					"id": "ab85c069-f69a-4247-9d71-c395f1411107",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"ids\": [\n    \n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://gmail.googleapis.com/gmail/v1/users/:userId/messages/batchDelete",
+							"protocol": "https",
+							"host": [
+								"gmail",
+								"googleapis",
+								"com"
+							],
+							"path": [
+								"gmail",
+								"v1",
+								"users",
+								":userId",
+								"messages",
+								"batchDelete"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "{{encodedUserEmail}}"
+								}
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"id": "d4c255fa-7f98-43e0-9447-b348700670b9",
